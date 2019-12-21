@@ -37,7 +37,7 @@ class OwnerDashboard extends Component {
       booking: [],
       isBooking: false,
       blankFlag: false,
-      deleted: false
+      isAvail: false
     };
   }
 
@@ -154,14 +154,29 @@ class OwnerDashboard extends Component {
           } else {
             response.data.forEach(element => {
               element.isBooking = false;
+              element.isAvail = false;
               if (element.booking && element.booking.length > 0) {
                 element.isBooking = true;
+              }
+
+              if (
+                element.prop.availability.alwaysAvailable == false &&
+                element.prop.availability.mon == false &&
+                element.prop.availability.tue == false &&
+                element.prop.availability.wed == false &&
+                element.prop.availability.thurs == false &&
+                element.prop.availability.fri == false &&
+                element.prop.availability.sat == false &&
+                element.prop.availability.sun == false
+              ) {
+                element.isAvail = true;
               }
             });
 
             this.setState(
               {
                 isBooking: true,
+                isAvail: true,
                 properties: response.data,
                 booking: response.data[0].booking
               },
@@ -273,56 +288,67 @@ class OwnerDashboard extends Component {
                     {property.booking.length() > 0 &&
                       property.booking[0].endDate}{" "}
                   </p> */}
-                  <p class="card-text">
-                    <small class="text-muted mr-4">
-                      <Link
-                        class="btn btn-outline-dark btn-sm"
-                        to={{
-                          pathname: "/editproperty",
-                          state: {
-                            propertyID: property.prop.propertyID,
-                            property: property.prop,
-                            changeDate: this.state.openhomeClock
-                          }
-                        }}
-                      >
-                        Manage Posting
-                      </Link>
-                    </small>
-                  </p>
-                  {/* DISABLING CANCEL BUTTON FOR NON BOOKED PROPERTIES */}
-                  {property.isBooking && (
-                    <div>
-                      <small class="text-muted">
-                        <button
-                          class="btn btn-outline-dark btn-md"
-                          onClick={this.handleCancel.bind(
-                            this,
-                            property.prop.propertyID,
-                            property.booking[0].startDate,
-                            property.booking[0].endDate
-                          )}
-                        >
-                          Cancel Booking
-                        </button>
-                      </small>
-                    </div>
+                  {property.isAvail && (
+                    <p style={{ color: "red" }}>
+                      {" "}
+                      This property has been Deleted!
+                    </p>
                   )}
 
-                  <br />
-                  <p>
-                    <small class="text-muted">
-                      <button
-                        class="btn btn-outline-dark btn-md"
-                        onClick={this.handleDelete.bind(
-                          this,
-                          property.prop.propertyID
-                        )}
-                      >
-                        Delete Property
-                      </button>
-                    </small>
-                  </p>
+                  {!property.isAvail && (
+                    <div>
+                      {" "}
+                      <p class="card-text">
+                        <small class="text-muted mr-4">
+                          <Link
+                            class="btn btn-outline-dark btn-sm"
+                            to={{
+                              pathname: "/editproperty",
+                              state: {
+                                propertyID: property.prop.propertyID,
+                                property: property.prop,
+                                changeDate: this.state.openhomeClock
+                              }
+                            }}
+                          >
+                            Manage Posting
+                          </Link>
+                        </small>
+                      </p>
+                      {/* DISABLING CANCEL BUTTON FOR NON BOOKED PROPERTIES */}
+                      {property.isBooking && (
+                        <div>
+                          <small class="text-muted">
+                            <button
+                              class="btn btn-outline-dark btn-md"
+                              onClick={this.handleCancel.bind(
+                                this,
+                                property.prop.propertyID,
+                                property.booking[0].startDate,
+                                property.booking[0].endDate
+                              )}
+                            >
+                              Cancel Booking
+                            </button>
+                          </small>
+                        </div>
+                      )}
+                      <br />
+                      <p>
+                        <small class="text-muted">
+                          <button
+                            class="btn btn-outline-dark btn-md"
+                            onClick={this.handleDelete.bind(
+                              this,
+                              property.prop.propertyID
+                            )}
+                          >
+                            Delete Property
+                          </button>
+                        </small>
+                      </p>{" "}
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

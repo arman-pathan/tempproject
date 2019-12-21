@@ -51,7 +51,7 @@ class PropertyDetails extends Component {
   showEstimate = e => {
     var start = moment(
       moment(new Date(this.state.startDate))
-        .add("days", 1)
+        .add("days", 2)
         .format("YYYY-MM-DD")
     );
     var end = moment(
