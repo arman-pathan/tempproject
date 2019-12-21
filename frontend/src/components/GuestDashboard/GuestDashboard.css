@@ -1,0 +1,23 @@
+table,
+th,
+td {
+  border: 1px solid black;
+}
+
+th {
+  height: 50px;
+
+  font-weight: bold;
+}
+
+th,
+td {
+  padding: 15px;
+  text-align: left;
+}
+
+.dashbackground {
+  background-image: url("../../images/signup3.jpg");
+  background-size: cover;
+  height: auto;
+}

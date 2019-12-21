@@ -1,0 +1,9 @@
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.dashbackground {
+  background-image: url("../../images/signup3.jpg");
+  background-size: cover;
+  height: auto;
+}
