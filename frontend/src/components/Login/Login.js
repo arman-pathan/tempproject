@@ -191,7 +191,7 @@ class Login extends Component {
                       <hr class="my-4" />
                       <div class="btn btn-lg btn-block text-uppercase">
                         <GoogleLogin
-                          clientId="410073665131-s5rtqmskaal8p7memdvqqcvntb1igmkk.apps.googleusercontent.com"
+                          clientId="959636655794-ls47797omrr3f5i5n1rsqrg94muj3dn2.apps.googleusercontent.com"
                           buttonText="Login"
                           onSuccess={this.responseGoogle}
                           onFailure={this.responseGoogle}
